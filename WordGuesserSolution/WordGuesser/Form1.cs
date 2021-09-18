@@ -15,6 +15,7 @@ namespace WordGuesser
         public Form1()
         {
             InitializeComponent();
+            MessageBox.Show("PUTANGINA");
         }
     }
 }
