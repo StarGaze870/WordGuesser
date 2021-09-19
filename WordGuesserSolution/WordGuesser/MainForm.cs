@@ -24,7 +24,9 @@ namespace WordGuesser
             Button[] letter = new Button[LETTERS];
             Button[] life = new Button[LIFE];
 
-
+            WordPrompt wp = new WordPrompt();
+            wp.returnWord += wordAction;
+            wp.ShowDialog();
 
             // SET LETTERS
             for (int i = 0; i < LETTERS; ++i)
@@ -46,9 +48,9 @@ namespace WordGuesser
                 lifePanel.Controls.Add(life[i]);
             }
         }
-        private void wordAction(object sender, EventArgs e)
+        private void wordAction(object sender, string e)
         {
-
+            wordLbl.Text = e;
         }
 
         private void letterAction(object sender, EventArgs e)

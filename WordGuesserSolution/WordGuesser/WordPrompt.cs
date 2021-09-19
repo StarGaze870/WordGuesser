@@ -22,12 +22,19 @@ namespace WordGuesser
         protected virtual void OnreturnWord()
         {
             if (returnWord != null)
-                returnWord(this, wordBox.Text);
+                returnWord(this, wordBox.Text.Trim());
         }
 
         private void okBtn_Click(object sender, EventArgs e)
         {
-
+            if (!wordBox.Text.Trim().Contains(" ") && wordBox.Text.Trim().Length <= 20)
+            {
+                OnreturnWord();
+                Dispose();
+                Close();
+            }
+            else
+                MessageBox.Show("HEHE");
         }
     }
 }
