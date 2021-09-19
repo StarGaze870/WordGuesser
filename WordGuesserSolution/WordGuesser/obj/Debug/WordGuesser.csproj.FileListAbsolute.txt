@@ -1,0 +1,11 @@
+C:\Users\ljvtu\Desktop\Github\WordGuesser\WordGuesserSolution\WordGuesser\bin\Debug\WordGuesser.exe.config
+C:\Users\ljvtu\Desktop\Github\WordGuesser\WordGuesserSolution\WordGuesser\bin\Debug\WordGuesser.exe
+C:\Users\ljvtu\Desktop\Github\WordGuesser\WordGuesserSolution\WordGuesser\bin\Debug\WordGuesser.pdb
+C:\Users\ljvtu\Desktop\Github\WordGuesser\WordGuesserSolution\WordGuesser\obj\Debug\WordGuesser.csproj.AssemblyReference.cache
+C:\Users\ljvtu\Desktop\Github\WordGuesser\WordGuesserSolution\WordGuesser\obj\Debug\WordGuesser.MainForm.resources
+C:\Users\ljvtu\Desktop\Github\WordGuesser\WordGuesserSolution\WordGuesser\obj\Debug\WordGuesser.Properties.Resources.resources
+C:\Users\ljvtu\Desktop\Github\WordGuesser\WordGuesserSolution\WordGuesser\obj\Debug\WordGuesser.csproj.GenerateResource.cache
+C:\Users\ljvtu\Desktop\Github\WordGuesser\WordGuesserSolution\WordGuesser\obj\Debug\WordGuesser.csproj.CoreCompileInputs.cache
+C:\Users\ljvtu\Desktop\Github\WordGuesser\WordGuesserSolution\WordGuesser\obj\Debug\WordGuesser.exe
+C:\Users\ljvtu\Desktop\Github\WordGuesser\WordGuesserSolution\WordGuesser\obj\Debug\WordGuesser.pdb
+C:\Users\ljvtu\Desktop\Github\WordGuesser\WordGuesserSolution\WordGuesser\obj\Debug\WordGuesser.WordPrompt.resources
