@@ -71,10 +71,13 @@ namespace WordGuesser
             this.Controls.Add(this.okBtn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.wordBox);
+            this.MaximumSize = new System.Drawing.Size(350, 250);
+            this.MinimumSize = new System.Drawing.Size(350, 250);
             this.Name = "WordPrompt";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enter Word";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WordPrompt_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

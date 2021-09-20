@@ -27,7 +27,7 @@ namespace WordGuesser
 
         private void okBtn_Click(object sender, EventArgs e)
         {
-            if (!wordBox.Text.Trim().Contains(" ") && wordBox.Text.Trim().Length <= 20)
+            if (!wordBox.Text.Trim().Contains(" ") && wordBox.Text.Trim().Length <= 20 && wordBox.Text.Trim().All(char.IsLetter))
             {
                 OnreturnWord();
                 Dispose();
@@ -35,6 +35,11 @@ namespace WordGuesser
             }
             else
                 MessageBox.Show("must be 1 word and 20 or less Characters!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void WordPrompt_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
         }
     }
 }

@@ -15,47 +15,25 @@ namespace WordGuesser
     {
         private Button[] letter;
         private Button[] life;
-        private int LIFE = 5;
         private int LETTERS = 26;
-        private char[] wordArr;
-        private char[] wordTempArr;
+
+        private int LIFE;
+        private int correctGuess;
+        private int lifeIndex;
         private int letterToGuess;
-        private int correctGuess = 0;
-        private int lifeIndex = 4;
+
+        private string correctWord;
+        private char[] wordArr;
+        private char[] wordTempArr;                
 
         public MainForm()
         {
             InitializeComponent();
-
-            letter = new Button[LETTERS];
-            life = new Button[LIFE];
-
-            WordPrompt wp = new WordPrompt();
-            wp.returnWord += wordAction;
-            wp.ShowDialog();
-
-            // SET LETTERS
-            for (int i = 0; i < LETTERS; ++i)
-            {
-                string name = ((char)(i + 65)).ToString();
-                letter[i] = new Button();
-                letter[i].Name = name;
-                letter[i].Text = name;
-                letter[i].Click += letterAction;
-                setLetterButton(ref letter[i]);
-                lettersPanel.Controls.Add(letter[i]);                                
-            }            
-            // SET LIFE
-            for(int i = 0; i < LIFE; ++i)
-            {
-                life[i] = new Button();
-                life[i].Name = i.ToString();
-                setLifeButton(ref life[i]);
-                lifePanel.Controls.Add(life[i]);
-            }
+            start();
         }
         private void wordAction(object sender, string word)
-        {            
+        {
+            correctWord = word;
             wordArr = word.ToArray();
 
             char[] temp = word.ToArray();
@@ -93,7 +71,6 @@ namespace WordGuesser
             wordTempArr = temp;
             letterToGuess = list.Count;
         }
-
         private void letterAction(object sender, EventArgs e)
         {
             string name = ((Button)sender).Name;            
@@ -133,17 +110,65 @@ namespace WordGuesser
             if (correctGuess == letterToGuess)
             {
                 MessageBox.Show("EZ BITCH", "Congratulations", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                reset();                
             }
             if(LIFE == 0)
-            {
-                // DISABLE BUTTONS
-                for (int i = 0; i < LETTERS; ++i)
-                {
-                    letter[i].Enabled = false;
-                }
-                MessageBox.Show("GAME OVER", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            {               
+                MessageBox.Show($"GAME OVER \nCorrect answer is:\n{correctWord}", "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                reset();
             }
         }        
+
+        private void reset()
+        {
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show($"Restart Game ?", "Warning", buttons, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                start();
+            }
+            else            
+                Close();            
+        }
+        private void start()
+        {
+            LIFE = 5;
+            correctGuess = 0;
+            lifeIndex = 4;
+            letterToGuess = 0;            
+
+            letter = new Button[LETTERS];
+            life = new Button[LIFE];
+
+            WordPrompt wp = new WordPrompt();
+            wp.returnWord += wordAction;
+            wp.ShowDialog();
+
+            lettersPanel.Controls.Clear();
+            lifePanel.Controls.Clear();
+
+            // SET LETTERS
+            for (int i = 0; i < LETTERS; ++i)
+            {
+                string name = ((char)(i + 65)).ToString();
+                letter[i] = new Button();
+                letter[i].Name = name;
+                letter[i].Text = name;
+                letter[i].Click += letterAction;
+                setLetterButton(ref letter[i]);
+                lettersPanel.Controls.Add(letter[i]);
+            }
+            // SET LIFE
+            for (int i = 0; i < LIFE; ++i)
+            {
+                life[i] = new Button();
+                life[i].Name = i.ToString();
+                setLifeButton(ref life[i]);
+                lifePanel.Controls.Add(life[i]);
+            }
+            lifeLbl.Text = "5/5";
+        }
 
         private void setLetterButton(ref Button btn)
         {
