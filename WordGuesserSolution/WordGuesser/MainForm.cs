@@ -96,7 +96,7 @@ namespace WordGuesser
 
                             correct = true;
                             ++correctGuess;
-                            break;
+                            //break;
                         }
                     }   
                     if(!correct)
