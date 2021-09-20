@@ -142,7 +142,7 @@ namespace WordGuesser
             life = new Button[LIFE];
 
             WordPrompt wp = new WordPrompt();
-            wp.returnWord += wordAction;
+            wp.returnWord += wordAction;            
             wp.ShowDialog();
 
             lettersPanel.Controls.Clear();
