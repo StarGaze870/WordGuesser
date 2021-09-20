@@ -12,17 +12,23 @@ using System.Windows.Forms;
 namespace WordGuesser
 {
     public partial class MainForm : Form
-    {        
+    {
+        private Button[] letter;
+        private Button[] life;
         private int LIFE = 5;
         private int LETTERS = 26;
-        private string word;
+        private char[] wordArr;
+        private char[] wordTempArr;
+        private int letterToGuess;
+        private int correctGuess = 0;
+        private int lifeIndex = 4;
 
         public MainForm()
         {
             InitializeComponent();
-            
-            Button[] letter = new Button[LETTERS];
-            Button[] life = new Button[LIFE];
+
+            letter = new Button[LETTERS];
+            life = new Button[LIFE];
 
             WordPrompt wp = new WordPrompt();
             wp.returnWord += wordAction;
@@ -48,14 +54,95 @@ namespace WordGuesser
                 lifePanel.Controls.Add(life[i]);
             }
         }
-        private void wordAction(object sender, string e)
-        {
-            wordLbl.Text = e;
+        private void wordAction(object sender, string word)
+        {            
+            wordArr = word.ToArray();
+
+            char[] temp = word.ToArray();
+            string wordTemp = "";
+
+            IList<int> list = new List<int>();
+            int lettersToHide = (int) Math.Ceiling(word.Length * 0.5);
+
+            Random ran = new Random();
+
+            int counter = 0;
+            int max = 100;
+            while (list.Count() <= lettersToHide && counter <= max)
+            {
+                ++counter;
+                int numTemp = ran.Next(0, word.Length);
+                if (!list.Contains(numTemp) && !list.Contains(numTemp + 1) && !list.Contains(numTemp - 1))                
+                    list.Add(numTemp);                
+            }                 
+
+            for(int i = 0; i < list.Count; ++i)
+            {
+               for(int j = 0; j < word.Length; ++j)
+               {
+                    if(list[i] == j)
+                    {
+                        temp[j] = '_';                        
+                    }
+               }                
+            }
+            for (int i = 0; i < word.Length; ++i)
+                wordTemp += temp[i];
+            
+            wordLbl.Text = wordTemp;
+            wordTempArr = temp;
+            letterToGuess = list.Count;
         }
 
         private void letterAction(object sender, EventArgs e)
         {
-            
+            string name = ((Button)sender).Name;            
+
+            if(LIFE <=  5 && LIFE > 0)
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = MessageBox.Show($"Are you sure you want to choose {name}", "Warning", buttons, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    bool correct = false;
+                    for(int i = 0; i < wordArr.Length; ++i)
+                    {
+                        
+                        if (wordArr[i].Equals(name[0]) && wordTempArr[i] == '_')
+                        {                            
+                            wordTempArr[i] = wordArr[i];
+                            wordLbl.Text = "";
+                            
+                            for (int j = 0; j < wordTempArr.Length; ++j)
+                                wordLbl.Text += wordTempArr[j];
+
+                            correct = true;
+                            ++correctGuess;
+                            break;
+                        }
+                    }   
+                    if(!correct)
+                    {
+                        life[lifeIndex--].BackColor = Color.Maroon;
+                        --LIFE;
+                        lifeLbl.Text = $"{LIFE}/5";
+                    }
+                }
+            }
+            if (correctGuess == letterToGuess)
+            {
+                MessageBox.Show("EZ BITCH", "Congratulations", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            if(LIFE == 0)
+            {
+                // DISABLE BUTTONS
+                for (int i = 0; i < LETTERS; ++i)
+                {
+                    letter[i].Enabled = false;
+                }
+                MessageBox.Show("GAME OVER", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }        
 
         private void setLetterButton(ref Button btn)
@@ -80,3 +167,4 @@ namespace WordGuesser
 
     }
 }
+

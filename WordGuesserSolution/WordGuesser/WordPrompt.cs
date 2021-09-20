@@ -22,7 +22,7 @@ namespace WordGuesser
         protected virtual void OnreturnWord()
         {
             if (returnWord != null)
-                returnWord(this, wordBox.Text.Trim());
+                returnWord(this, wordBox.Text.Trim().ToUpper());
         }
 
         private void okBtn_Click(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace WordGuesser
                 Close();
             }
             else
-                MessageBox.Show("HEHE");
+                MessageBox.Show("must be 1 word and 20 or less Characters!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
